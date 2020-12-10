@@ -7,4 +7,5 @@ import (
 
 func DefineRotasParaFornecedor(route *gin.RouterGroup) {
 	route.POST("/fornecedor", controllers.CriaFornecedor)
+	route.GET("/fornecedor/:id", controllers.DevolveFornecedor)
 }

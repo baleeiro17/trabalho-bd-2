@@ -6,30 +6,30 @@ import (
 	"trabalho-bd-2/internal/models"
 )
 
-func CriaFornecedor(ctx *gin.Context) {
-	var fornecedor models.Fornecedor
-	err := ctx.ShouldBindJSON(&fornecedor)
+func CriaProduto(ctx *gin.Context) {
+	var produto models.Produto
+
+	err := ctx.ShouldBindJSON(&produto)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// insere o fornecedor no banco de dados.
+	// inserir produto em um banco de dados.
 
-	// retorna http ok.
-	ctx.JSON(http.StatusOK, gin.H{"data": fornecedor})
+	// cria um fornecedor.
+	ctx.JSON(http.StatusOK, gin.H{"data": produto})
 
 }
 
-func DevolveFornecedor(ctx *gin.Context) {
+func DevolveProduto(ctx *gin.Context) {
 	//var fornecedor models.Fornecedor
 
-	//id do fornecedor.
+	//id do produto.
 	id := ctx.Params.ByName("id")
 
-	// busca o fornecedor no banco de dados.
+	// busca o produto no banco de dados.
 
 	// retorna  o id do fornecedor.
 	ctx.JSON(http.StatusOK, gin.H{"data": id})
-
 }
