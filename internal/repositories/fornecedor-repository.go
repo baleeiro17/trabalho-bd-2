@@ -30,8 +30,11 @@ func BuscaFornecedor(data *models.Fornecedor, id string) error {
 	// variavel de conexão do banco de dados.
 	db := config.GetMongoDB()
 
-	// insere no banco de dados(mongo-db).
-	err := db.C("fornecedor").FindId(bson.ObjectIdHex(id)).One(data)
+	// transformando id em hex.
+	IdHex := bson.ObjectIdHex(id)
+
+	// busca no banco de dados(mongo-db).
+	err := db.C("fornecedor").FindId(IdHex).One(data)
 	if err != nil {
 		return fmt.Errorf("Id do fornecedor não encontrado no mongodb")
 	}

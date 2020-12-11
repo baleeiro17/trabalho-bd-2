@@ -19,6 +19,7 @@ func CriaFornecedor(ctx *gin.Context) {
 	err = repositories.InsereFornecedor(&fornecedor)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// retorna http ok.
@@ -33,9 +34,12 @@ func DevolveFornecedor(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
 
 	// busca o fornecedor no banco de dados.
-	repositories.BuscaFornecedor(&fornecedor, id)
+	err := repositories.BuscaFornecedor(&fornecedor, id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	// retorna  o id do fornecedor.
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": fornecedor})
-
 }
