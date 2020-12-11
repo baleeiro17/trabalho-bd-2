@@ -9,6 +9,7 @@ import (
 
 func CriaFornecedor(ctx *gin.Context) {
 	var fornecedor models.Fornecedor
+
 	err := ctx.ShouldBindJSON(&fornecedor)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -24,7 +25,6 @@ func CriaFornecedor(ctx *gin.Context) {
 
 	// retorna http ok.
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": fornecedor})
-
 }
 
 func DevolveFornecedor(ctx *gin.Context) {

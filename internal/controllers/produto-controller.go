@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"trabalho-bd-2/internal/models"
+	"trabalho-bd-2/internal/repositories"
 )
 
 func CriaProduto(ctx *gin.Context) {
@@ -15,21 +16,31 @@ func CriaProduto(ctx *gin.Context) {
 		return
 	}
 
-	// inserir produto em um banco de dados.
+	// inserir produto no banco de dados.
+	err = repositories.InsereProduto(&produto)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-	// cria um fornecedor.
+	// produto criado com sucesso.
 	ctx.JSON(http.StatusOK, gin.H{"data": produto})
 
 }
 
 func DevolveProduto(ctx *gin.Context) {
-	//var fornecedor models.Fornecedor
+	var produto models.Produto
 
-	//id do produto.
+	// id do produto.
 	id := ctx.Params.ByName("id")
 
 	// busca o produto no banco de dados.
+	err := repositories.BuscaProduto(&produto, id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
-	// retorna  o id do fornecedor.
-	ctx.JSON(http.StatusOK, gin.H{"data": id})
+	// retorna as informações do produto.
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": produto})
 }
