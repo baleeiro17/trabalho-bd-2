@@ -24,7 +24,7 @@ func CriaProduto(ctx *gin.Context) {
 	}
 
 	// produto criado com sucesso.
-	ctx.JSON(http.StatusOK, gin.H{"data": produto})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": produto})
 
 }
 
