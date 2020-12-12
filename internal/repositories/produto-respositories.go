@@ -36,11 +36,8 @@ func BuscaProduto(data *models.Produto, id string) error {
 		return fmt.Errorf("Id do produto não encontrado no mongodb")
 	}
 
-	// aloca memória para o fornecedor.
-	data.Fornecedor = &models.Fornecedor{}
-
 	// busca o fornecedor que faz parte do produto para mostrar seus dados.
-	err = db.C("fornecedor").FindId(bson.ObjectIdHex(data.FornecedorId)).One(data.Fornecedor)
+	err = db.C("fornecedor").FindId(data.Fornecedor.Id).One(data.Fornecedor)
 	if err != nil {
 		return fmt.Errorf("Id do fornecedor colocado no produto não encontrado no mongodb")
 	}

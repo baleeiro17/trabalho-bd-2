@@ -36,20 +36,14 @@ func BuscaEstoque(data *models.Estoque, id string) error {
 		return fmt.Errorf("Id do estoque não encontrado no banco de dados")
 	}
 
-	// aloca memória para o produto.
-	data.Produto = &models.Produto{}
-
 	// busca o produto que faz parte do estoque para mostrar seus dados.
-	err = db.C("produto").FindId(bson.ObjectIdHex(data.ProdutoId)).One(data.Produto)
+	err = db.C("produto").FindId(data.Produto.Id).One(data.Produto)
 	if err != nil {
 		return fmt.Errorf("Id do produto colocado no estoque não encontrado no banco de dados")
 	}
 
-	// aloca memória para o fornecedor.
-	data.Produto.Fornecedor = &models.Fornecedor{}
-
 	// busca o fornecedor que faz parte do produto para mostrar seus dados.
-	err = db.C("fornecedor").FindId(bson.ObjectIdHex(data.Produto.FornecedorId)).One(data.Produto.Fornecedor)
+	err = db.C("fornecedor").FindId(data.Produto.Fornecedor.Id).One(data.Produto.Fornecedor)
 	if err != nil {
 		return fmt.Errorf("Id do fornecedor colocado no produto não encontrado no banco de dados")
 	}
