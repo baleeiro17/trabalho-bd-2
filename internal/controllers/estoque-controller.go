@@ -9,6 +9,7 @@ import (
 
 func CriaEstoque(ctx *gin.Context) {
 	var estoque models.Estoque
+
 	err := ctx.ShouldBindJSON(&estoque)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -39,6 +40,6 @@ func DevolveEstoque(ctx *gin.Context) {
 		return
 	}
 
-	// retorna as informações do produto.
+	// retorna as informações do estoque.
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": estoque})
 }
